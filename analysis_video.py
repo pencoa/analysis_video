@@ -52,7 +52,7 @@ def get_url(gcid):
 
 #translate the web url into mobile url
 #which consist of gcid information
-inurl = input('please input the original url of video you want to analysis:\n')
+inurl = input('please input the original url of video:\n')
 murl = re.sub('vod', 'm', inurl)
 
 gcid = get_gcid(murl)
