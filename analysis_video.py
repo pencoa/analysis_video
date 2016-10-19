@@ -2,37 +2,26 @@ import urllib.request, urllib.parse, urllib.error
 import re
 import hashlib
 
+
+def get_gcid(murl):
+    with urllib.request.urlopen(murl) as fhand:
+        for line in fhand:
+            if re.search(b'msurls', line):
+                line = line.rstrip()
+                line = line.split(b',')
+                for item in line:
+                    if re.search(b'msurls', item):
+                        ids = item.split(b'/')
+                        gcid = str(ids[4].upper())
+                        gcid = re.sub('b|\'', '', gcid)
+                        return gcid
+
 #translate the web url into mobile url
 #which consist of gcid information
 inurl = 'http://vod.kankan.com/v/90/90189.shtml'
 murl = re.sub('vod', 'm', inurl)
 
-# #get gcid
-# fhand = urllib.request.urlopen(murl)
-# for line in fhand:
-# 	if re.search(b'msurls', line):
-# 		line = line.rstrip()
-# 		line = line.split(b',')
-# 		for item in line:
-# 			if re.search(b'msurls', item):
-# 				ids = item.split(b'/')
-# 				gcid = str(ids[4].upper())
-# 				gcid = re.sub('b|\'', '', gcid)
-# 		break
-# fhand.close()
-
-def getg_cid(murl):
-    with urllib.request.urlopen(murl) as fhand:
-        for line in fhand:
-    	    if re.search(b'msurls', line):
-    		    line = line.rstrip()
-    		    line = line.split(b',')
-    		    for item in line:
-    		    	if re.search(b'msurls', item):
-    		    		ids = item.split(b'/')
-    		    		gcid = str(ids[4].upper())
-    		    		gcid = re.sub('b|\'', '', gcid)
-    		            return gcid
+gcid = get_gcid(murl)
 
 url1 = 'http://mp4.cl.kankan.com/getCdnresource_flv?gcid=' + gcid
 
