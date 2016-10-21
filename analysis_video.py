@@ -50,10 +50,11 @@ def get_url(gcid):
     url = 'http://' + ip +':80/' + address + '?key=' + key0 + '&key1' + param2
     return url
 
-#translate the web url into mobile url
-#which consist of gcid information
-inurl = input('please input the original url of video:\n')
-murl = re.sub('vod', 'm', inurl)
+if __name__ == '__main__':
+    #translate the web url into mobile url
+    #which consist of gcid information
+    inurl = input('please input the original url of video:\n')
+    murl = re.sub('vod', 'm', inurl)
 
-gcid = get_gcid(murl)
-print(get_url(gcid))
+    gcid = get_gcid(murl)
+    print(get_url(gcid))
