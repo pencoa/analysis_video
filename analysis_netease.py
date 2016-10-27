@@ -1,12 +1,11 @@
 import urllib.request, urllib.parse, urllib.error
+import re
 import xml.etree.ElementTree as ET
 
 inurl = input('please input the original url of video:\n')
 
-gids = inurl.split('/')
-gid = gids[-1]
-gids = gid.split('.')
-gid = gids[0]
+m = re.search("\/([A-Z0-9]*?)\.html", inurl)
+gid = m.group(1)
 a = gid[-2]
 b = gid[-1]
 
